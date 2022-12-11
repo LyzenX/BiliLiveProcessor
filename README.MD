@@ -55,17 +55,17 @@
 
 ## 软件截图
 
-![](https://github.com/LyzenX/BillLiveProcessor/blob/main/assets/example1.jpg)
+![](https://github.com/LyzenX/BillLiveProcessor/blob/main/assets/example1.png)
 
-![](https://github.com/LyzenX/BillLiveProcessor/blob/main/assets/example2.jpg)
+![](https://github.com/LyzenX/BillLiveProcessor/blob/main/assets/example2.png)
 
-![](https://github.com/LyzenX/BillLiveProcessor/blob/main/assets/example3.jpg)
+![](https://github.com/LyzenX/BillLiveProcessor/blob/main/assets/example3.png)
 
-![](https://github.com/LyzenX/BillLiveProcessor/blob/main/assets/example4.jpg)
+![](https://github.com/LyzenX/BillLiveProcessor/blob/main/assets/example4.png)
 
 清理后：
 
-![](https://github.com/LyzenX/BillLiveProcessor/blob/main/assets/example5.jpg)
+![](https://github.com/LyzenX/BillLiveProcessor/blob/main/assets/example5.png)
 
 ## 开源协议
 本软件使用 GPLv3 许可证。
