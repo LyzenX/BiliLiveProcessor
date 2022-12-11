@@ -18,7 +18,6 @@ fps_reg = r'\d+ fps,'
 fps_reg = re.compile(fps_reg)
 
 
-# O:\哈仔十一\成品\哈仔十一-20221125
 def analyse(path, app):
     options = app.get_options()
     # 读取目录下的文件
