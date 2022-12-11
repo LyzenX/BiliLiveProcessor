@@ -25,7 +25,7 @@
 本软件使用[niconvert](https://github.com/muzuiget/niconvert)进行弹幕转换，使用[ffmpeg](http://ffmpeg.org/)编码视频。
 
 ## 下载软件
-TODO
+[从Release中下载](https://github.com/LyzenX/BillLiveProcessor/releases)
 
 ## 使用方法
 软件暂时只支持Windows平台，需要安装Python。
@@ -55,18 +55,17 @@ TODO
 
 ## 软件截图
 
-![](https://raw.githubusercontent.com/LyzenX/BiliLiveProcessor/main/assets/example1.jpg)
+![](https://github.com/LyzenX/BillLiveProcessor/blob/main/assets/example1.jpg)
 
-![](https://raw.githubusercontent.com/LyzenX/BiliLiveProcessor/main/assets/example2.jpg)
+![](https://github.com/LyzenX/BillLiveProcessor/blob/main/assets/example2.jpg)
 
-![](https://raw.githubusercontent.com/LyzenX/BiliLiveProcessor/main/assets/example3.jpg)
+![](https://github.com/LyzenX/BillLiveProcessor/blob/main/assets/example3.jpg)
 
-![](https://raw.githubusercontent.com/LyzenX/BiliLiveProcessor/main/assets/example4.jpg)
+![](https://github.com/LyzenX/BillLiveProcessor/blob/main/assets/example4.jpg)
 
 清理后：
 
-![](https://raw.githubusercontent.com/LyzenX/BiliLiveProcessor/main/assets/example5.jpg)
-
+![](https://github.com/LyzenX/BillLiveProcessor/blob/main/assets/example5.jpg)
 
 ## 开源协议
 本软件使用 GPLv3 许可证。
