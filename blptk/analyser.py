@@ -225,18 +225,18 @@ def analyse(path, app):
         app.fast_no_danmu = False
         if horizontal == 0:
             app.output_method = 0
-            app.insert_log('将输出竖屏视频，需要更多时间和临时的储存空间进行转码。点击【生成生成处理文件】以生成处理文件。\n')
+            app.insert_log('将输出竖屏视频，需要更多时间和临时的储存空间进行转码。点击【生成处理文件】以生成处理文件。\n')
         elif vertical == 0:
             app.output_method = 1
-            app.insert_log('将输出横屏视频，需要更多时间和临时的储存空间进行转码。点击【生成生成处理文件】以生成处理文件。\n')
+            app.insert_log('将输出横屏视频，需要更多时间和临时的储存空间进行转码。点击【生成处理文件】以生成处理文件。\n')
         else:
             app.insert_log('由于同时存在横屏与竖屏视频，经分析')
             if horizontal / total_duration < 0.1:
                 app.output_method = 0
-                app.insert_log('竖屏视频占主导，将横屏视频上下加上黑边，最终输出竖屏视频，点击【生成生成处理文件】以生成处理文件。')
+                app.insert_log('竖屏视频占主导，将横屏视频上下加上黑边，最终输出竖屏视频，点击【生成处理文件】以生成处理文件。')
             elif vertical / total_duration < 0.1:
                 app.output_method = 1
-                app.insert_log('横屏视频占主导，将竖屏视频左右加上黑边，最终输出横屏视频，点击【生成生成处理文件】以生成处理文件。')
+                app.insert_log('横屏视频占主导，将竖屏视频左右加上黑边，最终输出横屏视频，点击【生成处理文件】以生成处理文件。')
             else:
                 app.output_method = -1
                 app.insert_log('无法确定最终应输出横屏还是竖屏视频，为了观众的观看体验，您可以创建多个文件夹，'
