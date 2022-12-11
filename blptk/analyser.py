@@ -3,7 +3,6 @@ import re
 import subprocess
 import time
 
-import blptk.app_win
 from blptk.video import Video
 
 date_reg = r'((\d{3}[1-9]|\d{2}[1-9]\d|\d[1-9]\d{2}|[1-9]\d{3})(((0[13578]|1[02])(0[1-9]|[12]\d|3[01]))|((0[469]|11)(' \
