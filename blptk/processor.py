@@ -124,8 +124,15 @@ def generate_multi(app, videos, columns, rows, output_method):
             # 生成中间文件
             if abs(video.columns / video.rows - crr) < 0.0001:
                 # 分辨率比例一致，缩放即可
-                command += f'ffmpeg -y -i "{video.flv}" -c:v {get_cv()} -profile:v main -b:v {config.bps} ' \
-                           f'-vf scale={columns}:{rows} -r 60 input{index}.mp4\n\r'
+                command += f'ffmpeg -y -i "{video.flv}" ' \
+                           f'-c:v {get_cv()} ' \
+                           f'-profile:v main ' \
+                           f'-c:a copy ' \
+                           f'-b:v {config.bps} ' \
+                           f'-vf scale={columns}:{rows} ' \
+                           f'-max_muxing_queue_size 1024 ' \
+                           f'-r 60 ' \
+                           f'input{index}.mp4\n\r'
             else:
                 # 分辨率比例不一致，矫正视频比例(加黑边)
                 if video.columns / video.rows > crr:
@@ -148,9 +155,15 @@ def generate_multi(app, videos, columns, rows, output_method):
                     # x是黑边总长度的一半
                     x = (columns - scale_columns) // 2
                     y = 0
-                command += f'ffmpeg -y -i "{video.flv}" -c:v {get_cv()} -profile:v main -b:v {config.bps} '\
+                command += f'ffmpeg -y -i "{video.flv}" ' \
+                           f'-c:v {get_cv()} ' \
+                           f'-profile:v main ' \
+                           f'-c:a copy ' \
+                           f'-b:v {config.bps} ' \
                            f'-vf scale={scale_columns}:{scale_rows},pad={columns}:{rows}:{x}:{y}:black ' \
-                           f'-r 60 "input{index}.mp4"\n\r'
+                           f'-max_muxing_queue_size 1024 ' \
+                           f'-r 60 ' \
+                           f'"input{index}.mp4"\n\r'
             clear += f"del input{index}.mp4\n\r"
 
         if not app.fast_no_danmu:
@@ -160,16 +173,28 @@ def generate_multi(app, videos, columns, rows, output_method):
         if options['danmu']:
             generate_ass(path, video, columns, rows, index, get_danmu_font_size(columns, rows), 1)  # 生成弹幕文件
             # 生成有弹幕的视频
-            command += f'ffmpeg -y -i input{index}.mp4 -c:v {get_cv()} -profile:v main -b:v {config.bps} ' \
-                       f'-vf scale={columns}:{rows},ass=input{index}.ass -r 60 "output{index}.mp4"\n\r'
+            command += f'ffmpeg -y -i input{index}.mp4 ' \
+                       f'-c:v {get_cv()} ' \
+                       f'-profile:v main ' \
+                       f'-c:a copy' \
+                       f'-b:v {config.bps} ' \
+                       f'-vf scale={columns}:{rows},ass=input{index}.ass ' \
+                       f'-r 60 ' \
+                       f'"output{index}.mp4"\n\r'
             clear += f'del "input{index}.ass"\n\r'
             clear += f'del "output{index}.mp4"\n\r'
             filelist_danmu += f"file 'output{index}.mp4'\n"
         if output_method == 1 and options['small_danmu']:
             generate_ass(path, video, columns, rows, index, get_danmu_font_size(columns, rows, True), 4, 'sync', True)  # 生成弹幕文件
             # 生成有弹幕的视频
-            command += f'ffmpeg -y -i input{index}.mp4 -c:v {get_cv()} -profile:v main -b:v {config.bps} ' \
-                       f'-vf scale={columns}:{rows},ass=input{index}_small.ass -r 60 "output{index}_small.mp4"\n\r'
+            command += f'ffmpeg -y -i input{index}.mp4 ' \
+                       f'-c:v {get_cv()} ' \
+                       f'-profile:v main ' \
+                       f'-c:a copy' \
+                       f'-b:v {config.bps} ' \
+                       f'-vf scale={columns}:{rows},ass=input{index}_small.ass ' \
+                       f'-r 60 ' \
+                       f'"output{index}_small.mp4"\n\r'
             clear += f'del "input{index}_small.ass"\n\r'
             clear += f'del "output{index}_small.mp4"\n\r'
             filelist_danmu_small += f"file 'output{index}_small.mp4'\n"
@@ -222,34 +247,66 @@ def generate_single(app, videos, columns, rows, output_method):
     path = app.analysed_path
     command = "chcp 65001\n\r"  # 调整命令行编码为UTF-8
     clear = "chcp 65001\n\r"  # 清理用命令
+    # 生成横屏视频
     if output_method == 1:
-        # 生成横屏视频
         if options['danmu'] or options['small_danmu']:
             # 生成一个高帧率中间文件
-            command += f'ffmpeg -y -i "{video.flv}" -c:v {get_cv()} -profile:v main -b:v {config.bps} ' \
-                       f'-vf scale={columns}:{rows} -r 60 input.mp4\n\r'
+            command += f'ffmpeg -y -i "{video.flv}" ' \
+                       f'-c:v {get_cv()} ' \
+                       f'-profile:v main ' \
+                       f'-c:a copy' \
+                       f'-b:v {config.bps} ' \
+                       f'-vf scale={columns}:{rows} ' \
+                       f'-max_muxing_queue_size 1024 ' \
+                       f'-r 60 ' \
+                       f'input.mp4\n\r'
             clear += "del input.mp4\n\r"
         if options['danmu']:
             generate_ass(path, video, columns, rows, 0, get_danmu_font_size(columns, rows))  # 生成弹幕文件
             # 生成有弹幕的视频
-            command += f'ffmpeg -y -i input.mp4 -c:v {get_cv()} -profile:v main -b:v {config.bps} ' \
-                       f'-vf scale={columns}:{rows},ass=input.ass "!!!大弹幕(适合手机).mp4"\n\r'
+            command += f'ffmpeg -y -i input.mp4 ' \
+                       f'-c:v {get_cv()} ' \
+                       f'-profile:v main ' \
+                       f'-c:a copy' \
+                       f'-b:v {config.bps} ' \
+                       f'-vf scale={columns}:{rows},ass=input.ass ' \
+                       f'-r 60 ' \
+                       f'"!!!大弹幕(适合手机).mp4"\n\r'
             clear += 'del "input.ass"\n\r'
         if options['small_danmu']:
-            generate_ass(path, video, columns, rows, 0, get_danmu_font_size(columns, rows, True), 4, 'sync', True)  # 生成弹幕文件
+            generate_ass(path, video, columns, rows, 0, get_danmu_font_size(columns, rows, True), 4, 'sync', True)
             # 生成有弹幕的视频
-            command += f'ffmpeg -y -i input.mp4 -c:v {get_cv()} -profile:v main -b:v {config.bps} ' \
-                       f'-vf scale={columns}:{rows},ass=input_small.ass "!!!小弹幕(适合电脑).mp4"\n\r'
+            command += f'ffmpeg -y -i input.mp4 ' \
+                       f'-c:v {get_cv()} ' \
+                       f'-profile:v main ' \
+                       f'-c:a copy' \
+                       f'-b:v {config.bps} ' \
+                       f'-vf scale={columns}:{rows},ass=input_small.ass ' \
+                       f'-r 60 ' \
+                       f'"!!!小弹幕(适合电脑).mp4"\n\r'
             clear += f'del "input_small.ass"\n\r'
-    else:
-        # 生成竖屏视频
+    else:  # 生成竖屏视频
         # 弹幕
         if options['danmu']:
             generate_ass(path, video, columns, rows)
-            command += f'ffmpeg -y -i "{video.flv}" -c:v {get_cv()} -profile:v main -b:v {config.bps} ' \
-                       f'-vf scale={columns}:{rows} -r 60 input.mp4\n\r'
-            command += f'ffmpeg -y -i input.mp4 -c:v {get_cv()} -profile:v main -b:v {config.bps} ' \
-                       f'-vf scale={columns}:{rows},ass=input.ass "!!!有弹幕.mp4"\n\r'
+            # 生成高质量中间文件
+            command += f'ffmpeg -y -i "{video.flv}" ' \
+                       f'-c:v {get_cv()} ' \
+                       f'-profile:v main ' \
+                       f'-c:a copy ' \
+                       f'-b:v {config.bps} ' \
+                       f'-vf scale={columns}:{rows} ' \
+                       f'-max_muxing_queue_size 1024 ' \
+                       f'-r 60 ' \
+                       f'input.mp4\n\r'
+            # 生成有弹幕的视频
+            command += f'ffmpeg -y -i input.mp4 ' \
+                       f'-c:v {get_cv()} ' \
+                       f'-profile:v main ' \
+                       f'-c:a copy ' \
+                       f'-b:v {config.bps} ' \
+                       f'-vf scale={columns}:{rows},ass=input.ass ' \
+                       f'"!!!有弹幕.mp4"\n\r'
             clear += "del input.mp4\n\r"
             clear += f'del "input.ass"\n\r'
 
