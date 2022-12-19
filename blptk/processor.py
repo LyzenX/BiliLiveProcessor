@@ -176,7 +176,7 @@ def generate_multi(app, videos, columns, rows, output_method):
             command += f'ffmpeg -y -i input{index}.mp4 ' \
                        f'-c:v {get_cv()} ' \
                        f'-profile:v main ' \
-                       f'-c:a copy' \
+                       f'-c:a copy ' \
                        f'-b:v {config.bps} ' \
                        f'-vf scale={columns}:{rows},ass=input{index}.ass ' \
                        f'-r 60 ' \
@@ -190,7 +190,7 @@ def generate_multi(app, videos, columns, rows, output_method):
             command += f'ffmpeg -y -i input{index}.mp4 ' \
                        f'-c:v {get_cv()} ' \
                        f'-profile:v main ' \
-                       f'-c:a copy' \
+                       f'-c:a copy ' \
                        f'-b:v {config.bps} ' \
                        f'-vf scale={columns}:{rows},ass=input{index}_small.ass ' \
                        f'-r 60 ' \
@@ -254,7 +254,7 @@ def generate_single(app, videos, columns, rows, output_method):
             command += f'ffmpeg -y -i "{video.flv}" ' \
                        f'-c:v {get_cv()} ' \
                        f'-profile:v main ' \
-                       f'-c:a copy' \
+                       f'-c:a copy ' \
                        f'-b:v {config.bps} ' \
                        f'-vf scale={columns}:{rows} ' \
                        f'-max_muxing_queue_size 1024 ' \
@@ -267,7 +267,7 @@ def generate_single(app, videos, columns, rows, output_method):
             command += f'ffmpeg -y -i input.mp4 ' \
                        f'-c:v {get_cv()} ' \
                        f'-profile:v main ' \
-                       f'-c:a copy' \
+                       f'-c:a copy ' \
                        f'-b:v {config.bps} ' \
                        f'-vf scale={columns}:{rows},ass=input.ass ' \
                        f'-r 60 ' \
@@ -279,7 +279,7 @@ def generate_single(app, videos, columns, rows, output_method):
             command += f'ffmpeg -y -i input.mp4 ' \
                        f'-c:v {get_cv()} ' \
                        f'-profile:v main ' \
-                       f'-c:a copy' \
+                       f'-c:a copy ' \
                        f'-b:v {config.bps} ' \
                        f'-vf scale={columns}:{rows},ass=input_small.ass ' \
                        f'-r 60 ' \
