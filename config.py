@@ -3,6 +3,10 @@
 # 如果该项为True时无法正常渲染，请设为False
 n_cuda = True
 
+# 复制一个ffmpeg到工作目录下
+# 如果你已经安装ffmpeg并将其添加到了环境变量中，可以设为False以延长硬盘寿命
+copy_ffmpeg = True
+
 # 字体
 font_name = '微软雅黑'
 # 最大弹幕行数
