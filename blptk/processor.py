@@ -314,10 +314,11 @@ def generate_single(app, videos, columns, rows, output_method):
     if options['bell']:
         command += 'echo '+chr(7)+'\n\r'
         command += 'timeout /t 5'
-    clear += 'del ffmpeg.exe\n\r'
+    if config.copy_ffmpeg:
+        shutil.copy('bin/ffmpeg.exe', path)
+        clear += 'del ffmpeg.exe\n\r'
     clear += 'del "!!!开始渲染.bat"\n\r'
     clear += 'del %0'
-    shutil.copy('bin/ffmpeg.exe', path)
     generate_file(path, '!!!开始渲染.bat', command)
     generate_file(path, '!!!清理所有中间文件.bat', clear)
 
